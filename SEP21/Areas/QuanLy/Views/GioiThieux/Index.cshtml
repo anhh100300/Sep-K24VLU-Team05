@@ -1,0 +1,16 @@
+﻿@model IEnumerable<SEP21.Models.GioiThieu>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/QuanLy/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Giới Thiệu</h1>
+@foreach (var item in Model)
+{
+    <p>
+        @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID })
+    </p>
+    <h3>Nội dung</h3>
+    <h4>@Html.Raw(item.NoiDung)</h4>
+}

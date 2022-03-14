@@ -1,0 +1,56 @@
+﻿@model SEP21.Models.BaiViet
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/QuanLy/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Xóa bài viết</h2>
+
+<h3>Bạn chắn chắn muốn xóa không ?</h3>
+<div>
+    <h4>Bài viết</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Ngày đăng bài
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayDangBai)
+        </dd>
+        <dt>
+            Tiêu đề
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TieuDe)
+        </dd>
+        <dt>
+            Nội dung
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NoiDung)
+        </dd>
+        <dt>
+            Tên loại bài viết
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LoaiBaiViet1.TenLoaiBaiViet)
+        </dd>
+        <dt>
+            Hình ảnh
+        </dt>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="IMG"></label>
+            <img id="Picture" src="@Url.Action("Picture", new { Model.ID })" />
+        </div>
+    </dl>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Trở lại", "Index2")
+        </div>
+    }
+</div>

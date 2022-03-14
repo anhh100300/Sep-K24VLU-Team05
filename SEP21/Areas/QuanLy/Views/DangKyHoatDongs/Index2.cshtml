@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SEP21.Models.DangKyHoatDong>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/QuanLy/Views/Shared/_AdminLayout.cshtml";
+    int STT = 0;
+}
+<div class="col-lg-12">
+    <h1 class="page-header">Danh Sách Đăng Ký</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <br />
+            <a href="@Url.Action("ExportExcel")">
+                <button type="button" class="btn btn-primary">Xuất excel</button>
+            </a>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Số thứ tự</th>
+                                <th>Thời gian đăng ký</th>
+                                <th>Tên hoạt động</th>
+                                <th>Họ tên</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                    <tr class="odd gradeX">
+                                        <td>
+                                            @{STT++;}
+                                            @STT
+                                        </td>
+                                        <td>@item.ThoiGianDangKy.ToShortDateString()</td>
+                                        <td>@item.BaiViet.TieuDe</td>
+                                        <td>@item.MSSV</td>
+                                    </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>

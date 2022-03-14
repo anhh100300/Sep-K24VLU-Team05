@@ -1,0 +1,34 @@
+﻿@model SEP21.Models.Login
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/QuanLy/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Chi tiết</h2>
+
+<div>
+    <h4>Tài khoản sinh viên</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tài khoản 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.username)
+        </dd>
+
+        <dt>
+            Mật khẩu
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.password)
+        </dd>
+
+    </dl>
+</div>
+<p>   
+    @Html.ActionLink("Trở lại", "Index")
+</p>

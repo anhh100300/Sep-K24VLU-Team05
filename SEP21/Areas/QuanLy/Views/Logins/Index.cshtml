@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SEP21.Models.Login>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/QuanLy/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-6">
+        <h2>Quản Lý Sinh Viên</h2>
+    </div>
+    <div class="col-md-6">
+        <form action="@Url.Action("Search")" method="get">
+            <div class="form-group input-group">
+                <input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm sinh viên" value="@ViewBag.Keyword">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Tài Khoản
+        </th>
+        <th>
+            Mật Khẩu
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.username)
+            </td>
+            <td>
+                ***
+            </td>
+            <td>
+                @Html.ActionLink("Khôi phục mật khẩu", "Reset", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,123 @@
+﻿@model SEP21.Models.BaiViet
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool dk = false;
+}
+@section scripts{
+    <script src="~/Plugin/ckfinder/ckfinder.js"></script>
+    <script src="~/Plugin/ckeditor/ckeditor.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#btn-img-select').click(function (e) {
+                e.preventDefault();
+                var finder = new CKFinder();
+                finder.selectActionFunction = function (url) {
+                    $("#imgvalue").val(url);
+                };
+                finder.popup();
+            });
+            CKEDITOR.replace('NoiDung');
+            $editor_data = $_POST['NoiDung'];
+        });
+    </script>
+}
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                <li>@Model.TieuDe</li>
+            </ol>
+            <h2 style="font-family:Arial">@Model.TieuDe</h2>
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-12">
+                    <div class="portfolio-info">
+                        @Html.Raw(Model.NoiDung)
+                        @if (Model.LoaiBaiViet1.TenLoaiBaiViet == "Hoạt động")
+                        {
+                            <hr />
+                            if (Session["UserID"] == null)
+                            {
+                                <h3 style="font-family: Arial">Để đăng ký hoạt động, vui lòng điền thông tin của bạn</h3>
+                                <p>@ViewBag.Messege</p>
+                                <div class="col-md-4 col-md-offset-4">
+                                    <div class="login-panel panel panel-default">
+                                        <form role="form" action="@Url.Action("Login")" method="post">
+                                            <input hidden class="form-control" value="@Model.ID" name="id" />
+                                            <div class="form-group">
+                                                <label>Tên tài khoản</label>
+                                                <input class="form-control" name="username">
+                                                <p class="help-block">Bao gồm tên.mssv</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Mật khẩu</label>
+                                                <input class="form-control" name="password" type="password">
+                                                <p class="help-block">Mặc định: VLUmssv</p>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                foreach (var item in ViewData["list"] as List<SEP21.Models.DangKyHoatDong>
+                                    )
+                                {
+                                    if (item.BaiViet.ID == Model.ID && item.hd_mssv.Substring(0,10) == Session["MSSV"].ToString())
+                                    {
+                                        dk = true;
+                                        break;
+                                    }
+                                }
+                                if (dk)
+                                {
+                                    <h3>
+                                        Bạn đã đăng ký thành công,
+                                        <div class="form-group" hidden>
+                                            <label>thông tin đăng nhập</label>
+                                            <input class="form-control" name="username" value="@Session["FullName"].ToString()" hidden>
+                                        </div>
+                                        <form role="form" action="@Url.Action("XoaDK")" method="post" contenteditable="false">
+                                            <input hidden class="form-control" value="@Model.ID" name="id" />
+                                            <input class="form-control" name="username" value="@Session["FullName"].ToString()" hidden>
+                                            <button type="submit" class="btn btn-primary">Hủy đăng kí</button>
+                                        </form>
+                                    </h3>
+                                }
+                                else
+                                {
+                                    <h3>
+                                        Bạn chưa đăng ký
+                                    </h3>
+                                    <form role="form" action="@Url.Action("DangKy")" method="post" contenteditable="false">
+
+                                        <input hidden class="form-control" value="@Model.ID" name="id" />
+                                        <div class="form-group" hidden>
+                                            <label>thông tin đăng nhập</label>
+                                            <input class="form-control" name="username" value="@Session["FullName"].ToString()" hidden>
+                                        </div>
+                                        <div class="form-group" hidden>
+                                            <label>Mật khẩu</label>
+                                            <input class="form-control" name="password" type="password" value="@Session["Password"]" hidden>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                                    </form>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Portfolio Details Section -->
+
+</main><!-- End #main -->

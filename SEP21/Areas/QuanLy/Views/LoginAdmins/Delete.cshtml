@@ -1,0 +1,39 @@
+﻿@model SEP21.Models.LoginAdmin
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Xóa tài khoản</h2>
+<h3>Bạn chắc chắn muốn xóa không ? </h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tài khoản
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.username)
+        </dd>
+
+        <dt>
+            Mật khẩu
+        </dt>
+
+        <dd>
+            **********
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Trở lại", "Index")
+        </div>
+    }
+</div>

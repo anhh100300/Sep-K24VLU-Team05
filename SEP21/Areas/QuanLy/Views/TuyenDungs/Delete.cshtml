@@ -1,0 +1,56 @@
+﻿@model SEP21.Models.TuyenDung
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Xóa bài viết</h2>
+
+<h3>Bạn chắc chắn muốn xóa không ?</h3>
+<div>
+    <h4>Tuyển dụng</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Vị trí
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ViTri)
+        </dd>
+
+        <dt>
+            Số lượng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+
+        <dt>
+            Yêu cầu
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YeuCau)
+        </dd>
+
+        <dt>
+            Chi tiết
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChiTiet)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Trở lại", "Index")
+        </div>
+    }
+</div>
